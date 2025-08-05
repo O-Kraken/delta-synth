@@ -9,7 +9,6 @@ pub fn main() {
         Err(err) => println!("Error: {}", err),
     }
 }
-
 fn run() -> Result<(), Box<dyn Error>> {
     let mut input = String::new();
 
