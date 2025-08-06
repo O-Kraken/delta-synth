@@ -8,10 +8,11 @@ use std::f64::consts::PI;
 use std::sync::{Arc, Mutex};
 use audio_modules::AudioModule;
 use audiomodules::oscillator::Oscillator;
+use audiomodules::oscillator::Waveforma;
 
 fn main() {
     let modules = build_audio_modules();
-    let module = modules[0].clone();
+    let module = modules[2].clone();
 
     let next_sample = Arc::new(Mutex::new(move || {
         let mut buffer = [0.0_f32; 1];
@@ -27,10 +28,13 @@ fn main() {
 
 
 fn build_audio_modules() -> Vec<Arc<Mutex<dyn AudioModule>>> {
-    let osc = Oscillator::new(440.0, 44100.0); // переменная osc c 
-
+  let osc = Oscillator::new(440.0, 44100.0, Waveforma::Quadrat, 0.5);
+  let osc1 = Oscillator::new(440.0, 44100.0, Waveforma::Sine, 0.5);
+  let osc2 = Oscillator::new(440.0, 44100.0, Waveforma::Saw, 0.5);
     vec![
-        Arc::new(Mutex::new(osc)), //возвращ вектор 
+        Arc::new(Mutex::new(osc)), // Квадрат
+        Arc::new(Mutex::new(osc1)), // син
+        Arc::new(Mutex::new(osc2))  // пила
     ]
 }
 
